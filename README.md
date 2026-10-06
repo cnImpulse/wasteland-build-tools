@@ -22,3 +22,9 @@ Preparation accepts an optional directory of previously downloaded upstream arch
 Before publishing binaries, obtain complete corresponding sources, licenses and build instructions for all bundled libraries, or select an artifact with a complete source record. Record and retain them with the Release. Do not describe partial FFmpeg sources as the complete source bundle.
 
 After both source review and three-platform verification pass, publish the fixed tag. Future upgrades get new tags; preserve previous Releases and do not replace their assets. Never use floating `latest` URLs in consumers.
+
+## Candidate verification (2026-10-06)
+
+[Native portability run](https://github.com/cnImpulse/wasteland-build-tools/actions/runs/37423960399) passed on macOS arm64, macOS x64 and Linux x64. Each platform verifies the archive hash, both executable versions, native dependencies, MP3 encoder and three audio conversion/probe cases. Linux reports the exact version `n8.1.3-9-g29e619e767-20260930`.
+
+The binary candidate remains a draft. This successful run proves portability and audio behavior; the corresponding-source publication gate above is still open.
