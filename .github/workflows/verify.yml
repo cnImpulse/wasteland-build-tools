@@ -2,7 +2,8 @@ name: Tool portability
 on:
   workflow_dispatch:
 permissions:
-  contents: read
+  # GitHub exposes draft releases only to identities with push access.
+  contents: write
 jobs:
   smoke:
     strategy:
@@ -18,6 +19,9 @@ jobs:
       - name: Download fixed candidate
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release download ffmpeg-8.1-r1 --dir dist
+        run: |
+          platform="$(node -p 'process.platform + "-" + process.arch')"
+          gh release download ffmpeg-8.1-r1 --dir dist \
+            --pattern manifest.json --pattern "ffmpeg-8.1-r1-$platform.*"
       - name: Verify hashes, native dependencies and audio rules
         run: node scripts/smoke.mjs dist
